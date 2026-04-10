@@ -7,10 +7,8 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'nazar'])
 def send_map(message):
-    # رسالة انتظار
     bot.reply_to(message, "📍 لحظة.. جاري سحب الخريطة المحدثة بالدبوس...")
     
-    # الروابط الجديدة المضمونة (رابط GitHub ورابط الموقع الرسمي المباشر)
     urls = [
         "https://raw.githubusercontent.com/bounca/madamnazar/master/map.png",
         "https://www.madamnazar.io/images/map.png"
@@ -30,7 +28,6 @@ def send_map(message):
             continue
             
     if not success:
-        # لو كل الصور خربت، نرسل الرابط اللي يفتح صورة في التليجرام
         bot.send_message(message.chat.id, "المواقع الرسمية معلقة، شوفيها من الرابط المباشر:\nhttps://madamnazar.io/")
 
 if __name__ == "__main__":
