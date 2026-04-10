@@ -7,38 +7,21 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'nazar'])
 def send_map(message):
-    bot.reply_to(message, "جاري تحديد موقع مدام نزار على الخريطة... 📍")
+    bot.reply_to(message, "لحظة بجيب لك الخريطة من المصدر المفتوح... 📍")
     
-    # روابط الصور المباشرة (نجرب أكثر من واحد)
-    urls = [
-        "https://madamnazar.io/images/map.png",
-        "https://jeanropke.github.io/RDOMap/assets/images/nazar.png"
-    ]
     
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-    }
-
-    success = False
-    for img_url in urls:
-        try:
-            response = requests.get(img_url, headers=headers, timeout=15)
-            if response.status_code == 200:
-                photo = BytesIO(response.content)
-                bot.send_photo(message.chat.id, photo, caption="هذا موقعها اليوم بالدبوس! 💃")
-                success = True
-                break
-        except:
-            continue
-
-    if not success:
-        bot.reply_to(message, "الموقع الرسمي للصورة محمي حالياً، يمكنك رؤيتها هنا: https://madamnazar.io/")
-
-if __name__ == "__main__":
-    bot.infinity_polling()
+    img_url = "https://raw.githubusercontent.com/bounca/madamnazar/master/map.png"
     
-    except Exception as e:
-        bot.reply_to(message, "فيه مشكلة بالاتصال، تأكدي إن السيرفر شغال.")
+    headers = {'User-Agent': 'Mozilla/5.0'}
+
+    try:
+        response = requests.get(img_url, headers=headers, timeout=15)
+        if response.status_code == 200:
+            bot.send_photo(message.chat.id, BytesIO(response.content), caption="لقيتها! هذي الخريطة بالدبوس 💃")
+        else:
+            bot.reply_to(message, "الموقع الرسمي حظر السيرفر، شوفيها هنا مباشرة:\nhttps://madamnazar.io/images/map.png")
+    except:
+        bot.reply_to(message, "فيه مشكلة فنية، جربي بعد دقيقة.")
 
 if __name__ == "__main__":
     bot.infinity_polling()
