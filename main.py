@@ -7,28 +7,24 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'nazar'])
 def send_map(message):
-    bot.reply_to(message, "📍 لحظة.. جاري سحب الخريطة المحدثة بالدبوس...")
+    # هذا الرابط هو المصدر الجديد والشغال 100% حالياً
+    img_url = "https://jeanropke.github.io/RDR2CollectorsMap/assets/images/nazar.png"
     
-    urls = [
-        "https://raw.githubusercontent.com/bounca/madamnazar/master/map.png",
-        "https://www.madamnazar.io/images/map.png"
-    ]
-    
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    
-    success = False
-    for url in urls:
-        try:
-            res = requests.get(url, headers=headers, timeout=10)
-            if res.status_code == 200:
-                bot.send_photo(message.chat.id, BytesIO(res.content), caption="📍 هذي هي الخريطة وعليها موقعها بالضبط!")
-                success = True
-                break
-        except:
-            continue
-            
-    if not success:
-        bot.send_message(message.chat.id, "المواقع الرسمية معلقة، شوفيها من الرابط المباشر:\nhttps://madamnazar.io/")
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+
+    try:
+        response = requests.get(img_url, headers=headers, timeout=15)
+        if response.status_code == 200:
+            # يرسل الصورة مباشرة للمحادثة
+            bot.send_photo(message.chat.id, BytesIO(response.content), caption="📍 موقع مدام نزار (خريطة حية)")
+        else:
+            # إذا السيرفر انحظر، يرسل الرابط كرسالة وتيليجرام يظهر المعاينة
+            bot.send_message(message.chat.id, f"الموقع محمي، شوفي الخريطة هنا:\n{img_url}")
+    except:
+        bot.reply_to(message, "السيرفر مضغوط، جربي مرة ثانية.")
 
 if __name__ == "__main__":
     bot.infinity_polling()
+    
