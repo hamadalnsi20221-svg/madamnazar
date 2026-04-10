@@ -2,7 +2,6 @@ import telebot
 import requests
 from io import BytesIO
 
-# التوكن حقك (لا تغيرينه)
 TOKEN = '8749511132:AAFWHiE-Qusrwl3UtC-dxU7PDAZIK4Pcuus'
 bot = telebot.TeleBot(TOKEN)
 
@@ -13,7 +12,6 @@ def send_location(message):
     # رابط الصورة العالمي لموقع مدام نزار
     image_url = "https://madamnazar.io/images/map.png"
     
-    # هوية متصفح عشان الموقع ما يرفض الطلب
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
