@@ -8,8 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start', 'nazar'])
 def send_map(message):
     bot.reply_to(message, "لحظة بجيب لك الخريطة من المصدر المفتوح... 📍")
-    
-    
+
     img_url = "https://raw.githubusercontent.com/bounca/madamnazar/master/map.png"
     
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -25,4 +24,3 @@ def send_map(message):
 
 if __name__ == "__main__":
     bot.infinity_polling()
-    
