@@ -9,7 +9,7 @@ def get_nazar_location(message):
     bot.reply_to(message, "لحظة أتواصل مع الرادار الخاص بمدام نزار... 📡")
     
     try:
-        # استخدام API بديل يسحب الموقع كنص
+        
         api_url = "https://api.madamnazar.io/location/current"
         response = requests.get(api_url, timeout=15)
         
